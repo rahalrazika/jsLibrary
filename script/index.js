@@ -20,7 +20,7 @@ function showBooks(myLibrary) {
         <td>${myLibrary[i].title} </td> 
         <td>${myLibrary[i].author} </td>
         <td>${myLibrary[i].numberOfPages} </td>
-        <td>${myLibrary[i].read} </td>
+        <td><input checked = "${myLibrary[i].read}" type="checkbox" id="myCheck" onclick="myFunction()"></td>
         </tr>`
 
         tableBody.innerHTML += row
@@ -28,10 +28,7 @@ function showBooks(myLibrary) {
 }
 
 function createNewBook() {
-//1. get values from the form
-// 2. create a book  objects
-//3. add the book to library
-//4.call the show books  function 
+
 let title = document.getElementById('title').value
 let author = document.getElementById('author').value
 let numberOfpages = document.getElementById('NumberOfpages').value
