@@ -34,10 +34,18 @@ function createNewBook() {
 //4.call the show books  function 
 let title = document.getElementById('title').value
 let author = document.getElementById('author').value
-let Pages = document.getElementById('Pages').value
+let numberOfpages = document.getElementById('NumberOfpages').value
 let read = document.getElementById('read').value
 
-console.log(title)
+ let book = new Book(title, author, numberOfpages, read)
+    myLibrary.push(book)
+    showBooks(myLibrary)
+ document.getElementById('title').value = ""
+ document.getElementById('author').value = ""
+ document.getElementById('numberOfpages').value = ""
+ document.getElementById('read').value = "true" 
+
+
 }
 
 showBooks(myLibrary)
