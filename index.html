@@ -17,13 +17,12 @@
             <input type="text" class="form-control" id="author">
         </div>
         <div class="form-group">
-            <label for="NumberOfpages">Pages</label>
-            <input type="text" class="form-control" id="NumberOfpages">
+            <label for="numberOfpages">Pages</label>
+            <input type="text" class="form-control" id="numberOfpages">
         </div>
         <select class="form-control" id = "read">
             <option value="true">Read</option>
             <option value="false">Not Read</option>
-
           </select>
     </form>
     <button onclick = "createNewBook()" class="btn btn-primary ">New book</button>
@@ -36,6 +35,7 @@
                 <td>Author</td>
                 <td>Pages</td>
                 <td>Read?</td>
+                <td>Actions</td>
             </tr>
         </thead>
         <tbody class="books-list">
