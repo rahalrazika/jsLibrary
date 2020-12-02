@@ -27,11 +27,17 @@ function showBooks(myLibrary) {
     }
 }
 
-let book = new Book("my book 1", "jon doe", 240, true)
-let book2 = new Book("my book 2", "jon doe", 340, true)
-let book3 = new Book("my book 3", "jon doe", 140, false)
+function createNewBook() {
+//1. get values from the form
+// 2. create a book  objects
+//3. add the book to library
+//4.call the show books  function 
+let title = document.getElementById('title').value
+let author = document.getElementById('author').value
+let Pages = document.getElementById('Pages').value
+let read = document.getElementById('read').value
 
-addBookToLibrary(book)
-addBookToLibrary(book2)
-addBookToLibrary(book3)
+console.log(title)
+}
+
 showBooks(myLibrary)
