@@ -1,11 +1,5 @@
 # Simple Library
-<p align="center">
-  <a href="https://github.com/rahalrazika/jsLibrary">
-      <h3 align="center"># Simple Library</h3>
 
-  </a>
-
-  </p>
 This is a Simple library  build with javascipt 
 
 ## Screenshots
