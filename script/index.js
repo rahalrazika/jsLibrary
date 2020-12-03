@@ -119,7 +119,7 @@ function initializeStorage() {
   }
 }
 
-function skipOnInitilize() {
+function skipOnInitialize() {
   const skipFunctionsInitialize = true;
   if (!skipFunctionsInitialize) {
     createNewBook();
@@ -130,4 +130,4 @@ function skipOnInitilize() {
 }
 
 initializeStorage();
-skipOnInitilize();
+skipOnInitialize();
