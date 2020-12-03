@@ -1,9 +1,10 @@
 let myLibrary = [];
-const title = document.getElementById('title').value;
-const author = document.getElementById('author').value;
-const numberOfpages = document.getElementById('numberOfpages').value;
-const read = document.getElementById('read').value;
-const validate = document.getElementById('alert');
+let title;
+let author;
+let numberOfPages;
+let read;
+let validate;
+
 
 
 function Book(title, author, numberOfPages, read) {
@@ -11,6 +12,14 @@ function Book(title, author, numberOfPages, read) {
   this.author = author;
   this.numberOfPages = numberOfPages;
   this.read = read;
+}
+
+function getBookValues() {
+  title = document.getElementById('title').value;
+  author = document.getElementById('author').value;
+  numberOfpages = document.getElementById('numberOfpages').value;
+  read = document.getElementById('read').value;
+  validate = document.getElementById('alert');
 }
 
 function showBooks() {
@@ -46,15 +55,16 @@ function hideForm() {
 
 
 function resetForm() {
-  document.getElementById('title').value = '';
-  document.getElementById('author').value = '';
-  document.getElementById('numberOfpages').value = '';
-  document.getElementById('read').value = 'true';
+  title = document.getElementById('title').value = '';
+  author = document.getElementById('author').value = '';
+  numberOfpages = document.getElementById('numberOfpages').value = '';
+  read = document.getElementById('read').value = 'true';
   hideForm();
 }
 
 
 function validateBook() {
+  getBookValues();
   if (title === '' || author === '' || numberOfpages === '') {
     return false;
   }
@@ -73,7 +83,8 @@ function alerts(type) {
 }
 
 function createNewBook() {
-  if (validateBook) {
+  if (validateBook()) {
+    getBookValues()
     const book = new Book(title, author, numberOfpages, read);
 
     myLibrary.push(book);
