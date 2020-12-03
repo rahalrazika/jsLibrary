@@ -28,6 +28,7 @@ function addBookToLibrary(book) {
     myLibrary.push(book)
 }
 
+
 function showBooks() {
     let tableBody = document.querySelector('.books-list')
     tableBody.innerHTML = ''
@@ -58,6 +59,15 @@ function createNewBook() {
     let author = document.getElementById('author').value
     let numberOfpages = document.getElementById('numberOfpages').value
     let read = document.getElementById('read').value
+    let validate = document.getElementById('alert')
+   
+    if(title == '' || author == '' || numberOfpages == ''  ) {
+       validate.className = 'alert alert-danger '
+       validate.innerHTML  = "fields can't be blanck"
+    } else  {
+        validate.className = 'alert alert-success'
+        validate.innerHTML = "Your book is created "
+        setTimeout(()=> validate.className = "d-none", 3000);
 
     let book = new Book(title, author, numberOfpages, read)
     myLibrary.push(book)
@@ -69,6 +79,10 @@ function createNewBook() {
     document.getElementById('read').value = "true"
 }
 
+}
+function alert() {
+
+}
 function removeBook(id) {
     myLibrary.splice(id, 1)
     storageSave(myLibrary)

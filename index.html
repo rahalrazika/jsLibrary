@@ -7,6 +7,10 @@
     <title>library</title>
 </head>
 <body class="container">
+    <div class="alert alert-danger d-none" role="alert" id="alert">
+    </div>
+  
+    <h1 class="text-center mb-2">ADD New Book</h1>
     <form id = "book-form>
         <div class="form-group">
             <label for="title">Title</label>
@@ -18,14 +22,14 @@
         </div>
         <div class="form-group">
             <label for="numberOfpages">Pages</label>
-            <input type="text" class="form-control" id="numberOfpages">
+            <input type="number" class="form-control" id="numberOfpages">
         </div>
         <select class="form-control" id = "read">
             <option value= true>Read</option>
             <option value= false>Not Read</option>
           </select>
     </form>
-    <button onclick = "createNewBook()" class="btn btn-primary ">New book</button>
+    <button onclick = "createNewBook() " class="btn btn-primary mt-3 ">Submit</button>
 
     <h1>Book Library</h1>
     <table class="table" id="books">
