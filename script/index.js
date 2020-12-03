@@ -12,6 +12,7 @@ function Book(title, author, numberOfPages, read) {
   this.numberOfPages = numberOfPages;
   this.read = read;
 }
+
 function showBooks() {
   const tableBody = document.querySelector('.books-list');
   tableBody.innerHTML = '';
@@ -43,18 +44,6 @@ function hideForm() {
   document.getElementById('book-form').style.display = 'none';
 }
 
-function initializeStorage() {
-  const skipCreateBook = true;
-  skipCreateBook == true ? null : createNewBook();
-  const storageGet = window.localStorage.getItem('library');
-  hideForm();
-  if (storageGet === null || storageGet === undefined) {
-    window.localStorage.setItem('library', []);
-  } else {
-    myLibrary = JSON.parse(storageGet);
-    showBooks();
-  }
-}
 
 function resetForm() {
   document.getElementById('title').value = '';
@@ -69,8 +58,6 @@ function validateBook() {
   if (title === '' || author === '' || numberOfpages === '') {
     return false;
   }
-
-
   return true;
 }
 
@@ -113,7 +100,7 @@ function removeBook(id) {
 }
 
 function update(id) {
-  if (myLibrary[id].read == 'true') {
+  if (myLibrary[id].read === 'true') {
     myLibrary[id].read = 'false';
   } else {
     myLibrary[id].read = 'true';
@@ -121,4 +108,26 @@ function update(id) {
   storageSave(myLibrary);
 }
 
+function initializeStorage() {
+  const storageGet = window.localStorage.getItem('library');
+  hideForm();
+  if (storageGet === null || storageGet === undefined) {
+    window.localStorage.setItem('library', []);
+  } else {
+    myLibrary = JSON.parse(storageGet);
+    showBooks();
+  }
+}
+
+function skipOnInitilize() {
+  const skipFunctionsInitialize = true;
+  if (!skipFunctionsInitialize) {
+    createNewBook();
+    btnForm();
+    update();
+    removeBook();
+  }
+}
+
 initializeStorage();
+skipOnInitilize();
