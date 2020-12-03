@@ -1,101 +1,124 @@
 let myLibrary = [];
-let libraryLocalStorage = []
+const title = document.getElementById('title').value;
+const author = document.getElementById('author').value;
+const numberOfpages = document.getElementById('numberOfpages').value;
+const read = document.getElementById('read').value;
+const validate = document.getElementById('alert');
+
 
 function Book(title, author, numberOfPages, read) {
-    this.title = title
-    this.author = author
-    this.numberOfPages = numberOfPages
-    this.read = read
+  this.title = title;
+  this.author = author;
+  this.numberOfPages = numberOfPages;
+  this.read = read;
+}
+function showBooks() {
+  const tableBody = document.querySelector('.books-list');
+  tableBody.innerHTML = '';
+  if (myLibrary.length > 0) {
+    for (let i = 0; i < myLibrary.length; i += 1) {
+      const row = `
+          <tr id="book-${i}"> 
+              <td>${myLibrary[i].title} </td> 
+              <td>${myLibrary[i].author} </td>
+              <td>${myLibrary[i].numberOfPages} </td>
+              <td><input ${myLibrary[i].read === 'true' ? 'checked' : ''} type="checkbox" id="read" onclick = "update(${i})"/></td>
+  
+              <td>
+                  <button class="btn btn-sm btn-danger" onclick="removeBook(${i})">Delete</button>
+              </td>
+          </tr>`;
+      tableBody.innerHTML += row;
+    }
+  } else {
+    tableBody.innerHTML = 'No books added yet';
+  }
 }
 
 
 function storageSave(value) {
-    window.localStorage.setItem('library', JSON.stringify(value))
+  window.localStorage.setItem('library', JSON.stringify(value));
+}
+function hideForm() {
+  document.getElementById('book-form').style.display = 'none';
 }
 
 function initializeStorage() {
-    
-    let storageGet = window.localStorage.getItem('library')
-    if (storageGet == null || storageGet == undefined) {
-        window.localStorage.setItem('library', [])
-    } else {
-        myLibrary = JSON.parse(storageGet)
-        showBooks()
-    }
+  const skipCreateBook = true;
+  skipCreateBook == true ? null : createNewBook();
+  const storageGet = window.localStorage.getItem('library');
+  hideForm();
+  if (storageGet === null || storageGet === undefined) {
+    window.localStorage.setItem('library', []);
+  } else {
+    myLibrary = JSON.parse(storageGet);
+    showBooks();
+  }
 }
 
-function addBookToLibrary(book) {
-    myLibrary.push(book)
+function resetForm() {
+  document.getElementById('title').value = '';
+  document.getElementById('author').value = '';
+  document.getElementById('numberOfpages').value = '';
+  document.getElementById('read').value = 'true';
+  hideForm();
 }
 
 
-function showBooks() {
-    let tableBody = document.querySelector('.books-list')
-    tableBody.innerHTML = ''
-    if (myLibrary.length > 0) {
-        for (let i = 0; i < myLibrary.length; i++) {
-            let row = `
-        <tr id="book-${i}"> 
-            <td>${myLibrary[i].title} </td> 
-            <td>${myLibrary[i].author} </td>
-            <td>${myLibrary[i].numberOfPages} </td>
-            <td><input ${myLibrary[i].read == "true" ? 'checked': ''} type="checkbox" id="read" onclick = "update(${i})"/></td>
+function validateBook() {
+  if (title === '' || author === '' || numberOfpages === '') {
+    return false;
+  }
 
-            <td>
-                <button class="btn btn-sm btn-danger" onclick="removeBook(${i})">Delete</button>
-            </td>
-        </tr>`
-            tableBody.innerHTML += row
-        }
 
-    } else {
-        tableBody.innerHTML = 'No books added yet'
-    }
+  return true;
 }
 
+function alerts(type) {
+  if (type) {
+    validate.className = 'alert alert-success';
+    validate.innerHTML = 'Your book is created ';
+    setTimeout(() => { validate.className = 'd-none'; }, 3000);
+  } else {
+    validate.className = 'alert alert-danger ';
+    validate.innerHTML = "fields can't be blanck";
+  }
+}
 
 function createNewBook() {
-    let title = document.getElementById('title').value
-    let author = document.getElementById('author').value
-    let numberOfpages = document.getElementById('numberOfpages').value
-    let read = document.getElementById('read').value
-    let validate = document.getElementById('alert')
-   
-    if(title == '' || author == '' || numberOfpages == ''  ) {
-       validate.className = 'alert alert-danger '
-       validate.innerHTML  = "fields can't be blanck"
-    } else  {
-        validate.className = 'alert alert-success'
-        validate.innerHTML = "Your book is created "
-        setTimeout(()=> validate.className = "d-none", 3000);
+  if (validateBook) {
+    const book = new Book(title, author, numberOfpages, read);
 
-    let book = new Book(title, author, numberOfpages, read)
-    myLibrary.push(book)
-    storageSave(myLibrary)
-    showBooks(myLibrary)
-    document.getElementById('title').value = ""
-    document.getElementById('author').value = ""
-    document.getElementById('numberOfpages').value = ""
-    document.getElementById('read').value = "true"
+    myLibrary.push(book);
+    storageSave(myLibrary);
+    showBooks(myLibrary);
+    alerts(true);
+    resetForm();
+  } else {
+    alerts(false);
+  }
 }
-
-}
-function alert() {
-
+function btnForm() {
+  const form = document.getElementById('book-form');
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+  }
 }
 function removeBook(id) {
-    myLibrary.splice(id, 1)
-    storageSave(myLibrary)
-    showBooks()
+  myLibrary.splice(id, 1);
+  storageSave(myLibrary);
+  showBooks();
 }
 
 function update(id) {
-    if(myLibrary[id].read == "true"){
-       myLibrary[id].read = "false"
-    }else{
-        myLibrary[id].read = "true"
-    }
-    storageSave(myLibrary)
+  if (myLibrary[id].read == 'true') {
+    myLibrary[id].read = 'false';
+  } else {
+    myLibrary[id].read = 'true';
+  }
+  storageSave(myLibrary);
 }
 
-initializeStorage()
+initializeStorage();

@@ -9,9 +9,9 @@
 <body class="container">
     <div class="alert alert-danger d-none" role="alert" id="alert">
     </div>
-  
-    <h1 class="text-center mb-2">ADD New Book</h1>
-    <form id = "book-form>
+    <button class="text-center btn btn-dark mb-2" onclick = "btnForm()">ADD New Book</button>
+
+    <form id = "book-form">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title">
@@ -28,8 +28,9 @@
             <option value= true>Read</option>
             <option value= false>Not Read</option>
           </select>
+          <button type="button" onclick = "createNewBook() " class="btn btn-primary mt-3 ">Submit</button>
+
     </form>
-    <button onclick = "createNewBook() " class="btn btn-primary mt-3 ">Submit</button>
 
     <h1>Book Library</h1>
     <table class="table" id="books">
