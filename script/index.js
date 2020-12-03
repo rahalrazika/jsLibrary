@@ -1,4 +1,5 @@
 let myLibrary = [];
+let libraryLocalStorage = []
 
 function Book(title, author, numberOfPages, read) {
     this.title = title
@@ -8,11 +9,26 @@ function Book(title, author, numberOfPages, read) {
 }
 
 
+function storageSave(value) {
+    window.localStorage.setItem('library', JSON.stringify(value))
+}
+
+function initializeStorage() {
+    
+    let storageGet = window.localStorage.getItem('library')
+    if (storageGet == null || storageGet == undefined) {
+        window.localStorage.setItem('library', [])
+    } else {
+        myLibrary = JSON.parse(storageGet)
+        showBooks()
+    }
+}
+
 function addBookToLibrary(book) {
     myLibrary.push(book)
 }
 
-function showBooks(myLibrary) {
+function showBooks() {
     let tableBody = document.querySelector('.books-list')
     tableBody.innerHTML = ''
     if (myLibrary.length > 0) {
@@ -45,6 +61,7 @@ function createNewBook() {
 
     let book = new Book(title, author, numberOfpages, read)
     myLibrary.push(book)
+    storageSave(myLibrary)
     showBooks(myLibrary)
     document.getElementById('title').value = ""
     document.getElementById('author').value = ""
@@ -54,7 +71,8 @@ function createNewBook() {
 
 function removeBook(id) {
     myLibrary.splice(id, 1)
-    showBooks(myLibrary)
+    storageSave(myLibrary)
+    showBooks()
 }
 
 function update(id) {
@@ -62,8 +80,8 @@ function update(id) {
        myLibrary[id].read = "false"
     }else{
         myLibrary[id].read = "true"
-
     }
-    console.log(myLibrary)
+    storageSave(myLibrary)
 }
-showBooks(myLibrary)
+
+initializeStorage()
