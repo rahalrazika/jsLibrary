@@ -1,10 +1,5 @@
-let myLibrary = [];
-let title;
-let author;
-let numberOfPages;
-let read;
-let validate;
 
+let myLibrary = [];
 
 
 function Book(title, author, numberOfPages, read) {
@@ -15,11 +10,12 @@ function Book(title, author, numberOfPages, read) {
 }
 
 function getBookValues() {
-  title = document.getElementById('title').value;
-  author = document.getElementById('author').value;
-  numberOfpages = document.getElementById('numberOfpages').value;
-  read = document.getElementById('read').value;
-  validate = document.getElementById('alert');
+  const title = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const numberOfpages = document.getElementById('numberOfpages').value;
+  const read = document.getElementById('read').value;
+  const book = new Book(title, author, numberOfpages, read);
+  return book;
 }
 
 function showBooks() {
@@ -55,23 +51,24 @@ function hideForm() {
 
 
 function resetForm() {
-  title = document.getElementById('title').value = '';
-  author = document.getElementById('author').value = '';
-  numberOfpages = document.getElementById('numberOfpages').value = '';
-  read = document.getElementById('read').value = 'true';
+  document.getElementById('title').value = '';
+  document.getElementById('author').value = '';
+  document.getElementById('numberOfpages').value = '';
+  document.getElementById('read').value = 'true';
   hideForm();
 }
 
 
 function validateBook() {
-  getBookValues();
-  if (title === '' || author === '' || numberOfpages === '') {
+  const book = getBookValues();
+  if (book.title === '' || book.author === '' || book.numberOfpages === '') {
     return false;
   }
   return true;
 }
 
 function alerts(type) {
+  const validate = document.getElementById('alert');
   if (type) {
     validate.className = 'alert alert-success';
     validate.innerHTML = 'Your book is created ';
@@ -84,10 +81,7 @@ function alerts(type) {
 
 function createNewBook() {
   if (validateBook()) {
-    getBookValues()
-    const book = new Book(title, author, numberOfpages, read);
-
-    myLibrary.push(book);
+    myLibrary.push(getBookValues());
     storageSave(myLibrary);
     showBooks(myLibrary);
     alerts(true);
