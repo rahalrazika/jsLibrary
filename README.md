@@ -14,7 +14,7 @@ This is a Simple library  build with javascipt
 
 
 ## Live Demo 🚀
-[Library](https://rahalrazika.github.io/jsLibrary/index.html)
+[Library](https://rahalrazika.github.io/jsLibrary)
 
 ## Getting Started 💻
 

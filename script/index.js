@@ -9,16 +9,16 @@ function Book(title, author, numberOfPages, read) {
   this.read = read;
 }
 
-function getBookValues() {
+const getBookValues = () => {
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
   const numberOfpages = document.getElementById('numberOfpages').value;
   const read = document.getElementById('read').value;
   const book = new Book(title, author, numberOfpages, read);
   return book;
-}
+};
 
-function showBooks() {
+const showBooks = () => {
   const tableBody = document.querySelector('.books-list');
   tableBody.innerHTML = '';
   if (myLibrary.length > 0) {
@@ -39,35 +39,32 @@ function showBooks() {
   } else {
     tableBody.innerHTML = 'No books added yet';
   }
-}
+};
 
 
-function storageSave(value) {
-  window.localStorage.setItem('library', JSON.stringify(value));
-}
-function hideForm() {
-  document.getElementById('book-form').style.display = 'none';
-}
+const storageSave = (value) => window.localStorage.setItem('library', JSON.stringify(value));
+
+const hideForm = () => { document.getElementById('book-form').style.display = 'none'; };
 
 
-function resetForm() {
+const resetForm = () => {
   document.getElementById('title').value = '';
   document.getElementById('author').value = '';
   document.getElementById('numberOfpages').value = '';
   document.getElementById('read').value = 'true';
   hideForm();
-}
+};
 
 
-function validateBook() {
+const validateBook = () => {
   const book = getBookValues();
   if (book.title === '' || book.author === '' || book.numberOfpages === '') {
     return false;
   }
   return true;
-}
+};
 
-function alerts(type) {
+const alerts = (type) => {
   const validate = document.getElementById('alert');
   if (type) {
     validate.className = 'alert alert-success';
@@ -77,9 +74,9 @@ function alerts(type) {
     validate.className = 'alert alert-danger ';
     validate.innerHTML = "fields can't be blanck";
   }
-}
+};
 
-function createNewBook() {
+const createNewBook = () => {
   if (validateBook()) {
     myLibrary.push(getBookValues());
     storageSave(myLibrary);
@@ -89,31 +86,33 @@ function createNewBook() {
   } else {
     alerts(false);
   }
-}
-function btnForm() {
+};
+
+const btnForm = () => {
   const form = document.getElementById('book-form');
   if (form.style.display === 'none') {
     form.style.display = 'block';
   } else {
     form.style.display = 'none';
   }
-}
-function removeBook(id) {
+};
+
+const removeBook = (id) => {
   myLibrary.splice(id, 1);
   storageSave(myLibrary);
   showBooks();
-}
+};
 
-function update(id) {
+const update = (id) => {
   if (myLibrary[id].read === 'true') {
     myLibrary[id].read = 'false';
   } else {
     myLibrary[id].read = 'true';
   }
   storageSave(myLibrary);
-}
+};
 
-function initializeStorage() {
+const initializeStorage = () => {
   const storageGet = window.localStorage.getItem('library');
   hideForm();
   if (storageGet === null || storageGet === undefined) {
@@ -122,9 +121,9 @@ function initializeStorage() {
     myLibrary = JSON.parse(storageGet);
     showBooks();
   }
-}
+};
 
-function skipOnInitialize() {
+const skipOnInitialize = () => {
   const skipFunctionsInitialize = true;
   if (!skipFunctionsInitialize) {
     createNewBook();
@@ -132,7 +131,7 @@ function skipOnInitialize() {
     update();
     removeBook();
   }
-}
+};
 
 initializeStorage();
 skipOnInitialize();
