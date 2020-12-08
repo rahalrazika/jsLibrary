@@ -2,11 +2,8 @@
 let myLibrary = [];
 
 
-function Book(title, author, numberOfPages, read) {
-  this.title = title;
-  this.author = author;
-  this.numberOfPages = numberOfPages;
-  this.read = read;
+const bookFactory = (title, author, numberOfPages, read) => {
+  return{title, author, numberOfPages, read}
 }
 
 const getBookValues = () => {
@@ -14,7 +11,7 @@ const getBookValues = () => {
   const author = document.getElementById('author').value;
   const numberOfpages = document.getElementById('numberOfpages').value;
   const read = document.getElementById('read').value;
-  const book = new Book(title, author, numberOfpages, read);
+  const book = bookFactory(title, author, numberOfpages, read);
   return book;
 };
 
